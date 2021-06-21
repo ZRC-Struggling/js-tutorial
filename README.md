@@ -41,16 +41,15 @@ JS中没有char类型，所以不管是字符，还是字符串，都被看做st
 用typeof来查看null的数据类型，结果居然是'object'，有些人觉得“存在即合理”，但我觉得这算个设计缺陷，没带来什么好处。
 ### boolean挺正常
 JS中boolean有两个值，一真(true)一假(false)。
-在JS中，有6个假值(falsy：是false或者转布尔值后是false)，分别是：
+在JS中，有5类假值(falsy：是false或者转布尔值后是false)，分别是：
 ```javascript
 false
-0
-NaN
+0(-0, 0n,-0n)、NaN
 ''(同"")
 null
 undefined
 ```
-除了这6个值，其它值均为真值，所以，空对象{}, 空数组[]，都是真值。
+除了这些，其它值均为真值，所以，空对象{}, 空数组[]，都是真值。
 要把其它类型的值转为布尔值，可以用Boolean()方法，也可以在其前加!!，例如：
 ```javascript
 Boolean([]) // true
@@ -58,14 +57,21 @@ Boolean([]) // true
 ```
 
 ### 数组
-由于JS是动态类型语言，它很灵活，数组元素的数据类型可以是不同的，而且数组不会有溢出异常，这也体现了
+由于JS是动态类型语言，它很灵活，数组元素的数据类型可以是不同的，而且数组不会有溢出异常，这也体现
 它的高容错性。
 eg:
 ```javascript
 var arr = [
-	true, 1, '人生还有多少个二十年',
-	null, undefined, [], {},
-	function () {}, new Date(), /\s+/
+	true,
+	1,
+	'人生还有多少个二十年',
+	null,
+	undefined,
+	[],
+	{},
+	function () {},
+	new Date(),
+	/\s+/,
 ];
 arr.length; // 10
 arr[100]; // 数组当前只有10个元素，但是访问它的第101(100-0+1)个却不会报错，仅仅是返回undefined
@@ -108,6 +114,7 @@ eg:
 
 ## 常用api
 ### 数组
+实例方法
 ```javascript
 var arr = [];
 // 往数组推入元素，返回数组元素的长度
@@ -134,6 +141,14 @@ arr.sort();
 // 截取起始索引和结束索引之间的元素，返回一个新数组，原数组保持不变
 // 此处返回[1]，arr的值为[1, 10, 2]
 arr.slice(0, 1);
+```
+
+静态方法
+```javascript
+// Array.isArray用来判断给定值是否为数组，这里返回false
+Array.isArray(document.querySelectorAll('div'));
+// Array.from可把类数组转为数组，这里返回true
+Array.isArray(Array.from(document.querySelectorAll('div')))
 ```
 
 ## 术语解释
