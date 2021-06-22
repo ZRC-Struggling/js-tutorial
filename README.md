@@ -61,7 +61,7 @@ Boolean([]) // true
 它的高容错性。
 eg:
 ```javascript
-var arr = [
+const arr = [
 	true,
 	1,
 	'人生还有多少个二十年',
@@ -86,7 +86,7 @@ arr[100]; // 数组当前只有10个元素，但是访问它的第101(100-0+1)�
 	还有一点可以留意一下，美元符号$也可以作为命名的元素（或许是美国霸道？其实中文名称也可以用来起名）
 eg:
 ```javascript
-var 震惊 = '中文居然可以用来命名!!!';
+const 震惊 = '中文居然可以用来命名!!!';
 console.log(震惊); // 中文居然可以用来命名!!!
 ````
 ## 运算符
@@ -116,7 +116,7 @@ eg:
 ### 数组
 实例方法
 ```javascript
-var arr = [];
+const arr = [];
 // 往数组推入元素，返回数组元素的长度
 // 此处返回3，arr的值为[1, 2, 3]
 arr.push(1, 2, 3);
@@ -149,6 +149,60 @@ arr.slice(0, 1);
 Array.isArray(document.querySelectorAll('div'));
 // Array.from可把类数组转为数组，这里返回true
 Array.isArray(Array.from(document.querySelectorAll('div')))
+```
+
+### 对象
+实例方法
+```javascript
+// hasOwnProperty用来判断对象自身（排除从原型上继承的属性）是否有该属性
+({
+    name: 'Bob',
+    age: 100,
+}).hasOwnProperty('name')
+```
+静态方法
+```javascript
+// Object.assign用来合并对象
+// {a: "a", b: 2, c: {c1: "cc"}}
+Object.assign(
+	{},
+	{
+		a: 1,
+		b: 2,
+		c: {
+			c1: 33
+		}
+	},
+	{
+		a: 'a',
+		c: {
+			c1: 'cc'
+		}
+	}
+);
+const obj1 = {};
+// Object.defineProperty通常用来指定对象属性的特性
+Object.defineProperty(obj1, 'a', {
+    value: '1',
+});
+// Object.getOwnPropertyDescriptors会返回对象属性的特性 
+// {a: {value: "1", writable: false, enumerable: false, configurable: false}}
+Object.getOwnPropertyDescriptors(obj1);
+const obj2 = {
+    a: '2'
+};
+// Object.seal可用于“密封”对象，使得它的属性不能被增/删，但修改
+Object.seal(obj2);
+Object.getOwnPropertyDescriptors(obj2);
+// {a: {value: "2", writable: true, enumerable: true, configurable: false}}
+const obj3 = {
+    a: '3'
+};
+// Object.freeze用来“冻结”对象，使得它的属性不能增/删/改，仅仅支持枚举
+Object.freeze(obj3);
+Object.getOwnPropertyDescriptors(obj3);
+// {a: {value: "3", writable: false, enumerable: true, configurable: false}}
+
 ```
 
 ## 术语解释
