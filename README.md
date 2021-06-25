@@ -191,7 +191,7 @@ Object.getOwnPropertyDescriptors(obj1);
 const obj2 = {
     a: '2'
 };
-// Object.seal可用于“密封”对象，使得它的属性不能被增/删，但修改
+// Object.seal可用于“密封”对象，使得它的属性不能被增/删，但可被修改
 Object.seal(obj2);
 Object.getOwnPropertyDescriptors(obj2);
 // {a: {value: "2", writable: true, enumerable: true, configurable: false}}
@@ -203,6 +203,23 @@ Object.freeze(obj3);
 Object.getOwnPropertyDescriptors(obj3);
 // {a: {value: "3", writable: false, enumerable: true, configurable: false}}
 
+```
+
+### 函数
+实例方法
+```javascript
+// `=>`用于指示这是一个函数，用它代替function关键字，并且当函数主体是一个返回值时，还可省略`{}`
+// 与常规函数相比，这样显得更简洁。
+const foo = (a, b, c) => console.log(a, b, c);
+// 函数的call、apply、bind都可以改变函数的上下文（即函数内this的指向）
+// call、apply会使用给定的参数，调用函数，而bind仅仅为函数绑定上下文或实参，它返回的是一个函数
+// call传实参，是逐个传递，而apply则接收类数组（length属性为正整数）
+foo.call(this, 1, 2, 3); // 1 2 3
+foo.apply(this, [1, 2, 3]); // 1 2 3
+(foo.bind(this, 1, 2, 3))(); // 1 2 3
+// 函数的length数组会返回函数的形参个数
+foo.length // 3
+foo.bind(this, 1, 2, 3).length // 0
 ```
 
 ## 术语解释
